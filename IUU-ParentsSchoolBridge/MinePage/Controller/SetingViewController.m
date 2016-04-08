@@ -63,9 +63,9 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     cell.labName.text = _infoArr[indexPath.row];
-    
+    cell.text2.hidden = YES;
     cell.textLab.hidden = YES;
-    
+    cell.text1.hidden = YES;
     return cell;
     
     

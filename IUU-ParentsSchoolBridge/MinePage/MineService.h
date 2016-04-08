@@ -13,4 +13,9 @@
 
 -(void)requestInfoWithtjiazhangId:(long int)jiazhangId andWithSuccessInfo:(void(^)(NSDictionary *))studentInfo;
 -(void)requestInfoWithtstudentId:(long int)studentId andWithSuccessInfo:(void(^)(NSDictionary *))rongyuInfo;
+/**
+ *地址
+  */
+-(void)requestInfoWithDic:(NSDictionary *)dic andWithSuccessInfo:(void (^)(NSDictionary *))homeworkInfo;
+-(void)requestInfoWithjiazhangId:(long)jiazhangId andWithSuccessInfo:(void (^)(NSDictionary *))dizhi;
 @end

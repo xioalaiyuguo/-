@@ -8,8 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MineSecondTableViewCell : UITableViewCell
+@interface MineSecondTableViewCell : UITableViewCell<UITextFieldDelegate>
 @property (strong,nonatomic)UILabel *labName;
 @property (strong,nonatomic)UILabel *textLab;
+@property (strong,nonatomic)UITextField *text1;
+@property (strong,nonatomic)UITextView *text2;
+
 
 @end

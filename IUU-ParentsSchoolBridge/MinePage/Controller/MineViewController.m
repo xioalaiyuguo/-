@@ -145,6 +145,8 @@
             if (cell == nil) {
                 cell = [[MineSecondTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Id];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.text1.hidden = YES;
+                cell.text2.hidden = YES;
                         }
             cell.labName.text = _infoArr1[indexPath.row];
             
@@ -188,7 +190,7 @@
             
             HomeViewController *sc =[[HomeViewController alloc]init];
             sc.hidesBottomBarWhenPushed  = YES;//隐藏tabbar
-            
+            sc.jiazhangid = _i;
             [self.navigationController pushViewController:sc animated:YES];
             
         }else if (indexPath.row==1){
