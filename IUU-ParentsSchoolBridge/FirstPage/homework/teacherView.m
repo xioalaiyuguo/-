@@ -22,7 +22,7 @@
 static CGRect oldframe;
 @implementation teacherView
 
--(UIView *)initWithFrame:(CGRect)frame andWithTeacherImageView:(NSString *)teacherImageView andWithTeacherName:(NSString *)teacherName andWithSubject:(NSString *)subject{
+-(UIView *)initWithFrame:(CGRect)frame andWithTeacherImageView:(NSData *)teacherImageView andWithTeacherName:(NSString *)teacherName andWithSubject:(NSString *)subject{
     if (self = [super init]) {
         self.frame = frame;
         self.bgImageView = [[UIImageView alloc]init];
@@ -43,7 +43,12 @@ static CGRect oldframe;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showImage)];
         [self.teacherImageView addGestureRecognizer:tap];
         self.teacherImageView.backgroundColor = [UIColor blueColor];
-        self.teacherImageView.image = [UIImage imageNamed:teacherImageView];
+        if (teacherImageView) {
+             self.teacherImageView.image = [UIImage imageWithData:teacherImageView];
+        }else{
+            self.teacherImageView.image = [UIImage imageNamed:@"homework_person"];
+        }
+       
         self.teacherImageView.layer.masksToBounds = YES;
         [self addSubview:_teacherImageView];
         
@@ -60,10 +65,17 @@ static CGRect oldframe;
         self.nameLab = [[UILabel alloc]init];
         self.nameLab.font = [UIFont systemFontOfSize:15];
         self.nameLab.textColor = COLOR(194, 194, 194, 1);
-        NSString *name = [NSString stringWithFormat:@"%@老师",teacherName];
+         NSString *name = [NSString stringWithFormat:@"%@老师",teacherName];
+        if (teacherName) {
+            
+            self.nameLab.text = name;
+
+        }else{
+            self.nameLab.text = @"未知老师";
+        }
+      
         self.nameLab.textAlignment = NSTextAlignmentRight;
-        self.nameLab.text = name;
-        [self.bgImageView addSubview:_nameLab];
+               [self.bgImageView addSubview:_nameLab];
         
         self.subLab = [[UILabel alloc]init];
         self.subLab.font = [UIFont systemFontOfSize:15];
@@ -99,9 +111,8 @@ static CGRect oldframe;
 }
 
 -(void)showImage{
-    
-    
-    UIImage *image=self.teacherImageView.image;
+   
+    UIImage *image = self.teacherImageView.image;
     UIWindow *window=[UIApplication sharedApplication].keyWindow;
     UIView *backgroundView=[[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height)];
     oldframe=[self.teacherImageView convertRect:self.teacherImageView.bounds toView:window];

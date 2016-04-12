@@ -13,4 +13,7 @@
 
 @property (strong,nonatomic) HomeworkModel *modelCell;
 
+@property (strong,nonatomic) NSArray *pic;
+@property (assign,nonatomic)CGFloat cellH;
+
 @end

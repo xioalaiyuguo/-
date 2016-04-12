@@ -20,7 +20,12 @@
 @property (copy,nonatomic)NSString *time;
 @property (assign,nonatomic)long  int countHw;
 
+@property (copy,nonatomic)NSString *homeworkId;
+
 @property (assign, nonatomic) CGFloat cellHeight;
+
+//老师的名字
+@property (copy,nonatomic)NSString *teacherName;
 
 +(instancetype)HomeworkModelWithdic:(NSDictionary *)dic;
 

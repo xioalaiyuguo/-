@@ -12,17 +12,31 @@
 #import "HomeworkModel.h"
 #import "teacherView.h"
 #import "HomeworkService.h"
+
+//warning 老师头像的url
+#define TEACHERIMAGEURL @"http://10.110.5.96:8888/iuu-teacher"
+
 @interface OneHomeworkViewController ()
 @property (strong,nonatomic)UITableView *hmTable;
 @property (strong,nonatomic)UIView *teacherView;
 @property (strong,nonatomic)UITapGestureRecognizer *tabTap;
 @property (assign,nonatomic)BOOL show;
 
+
 //**老师信息的名字*/
 @property (strong,nonatomic)NSString *name;
 
 //**老师信息的头像*/
 @property (strong,nonatomic)NSString *teacherPic;
+/**
+ *  图片作业
+ */
+@property (strong,nonatomic)NSArray *picArr;
+
+
+//** 获取图片高度*/
+@property (assign,nonatomic)CGFloat picHeight;
+
 @end
 
 @implementation OneHomeworkViewController
@@ -69,14 +83,28 @@
         
         
         NSString *strr = ddd[@"data"][0][@"user_image"];
-        self.teacherPic = strr;
+//        self.teacherPic = strr;
+        
+        
         NSLog(@"%@",_teacherPic);
-       self.teacherView = [[teacherView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-200, SCREEN_WIDTH, 200) andWithTeacherImageView:@"123456.jpg" andWithTeacherName:_name andWithSubject:self.hw.subject];
-            [self.view addSubview:_teacherView];
+        NSData *imagedata =  [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@/image/Header/%@",TEACHERIMAGEURL,strr]]];
+        [self.teacherView  removeFromSuperview];
+       self.teacherView = [[teacherView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-200, SCREEN_WIDTH, 200) andWithTeacherImageView:imagedata andWithTeacherName:_name andWithSubject:self.hw.subject];
+      [self.view addSubview:_teacherView];
+    }];
+    self.teacherView = [[teacherView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-200, SCREEN_WIDTH, 200) andWithTeacherImageView:nil andWithTeacherName:_hw.teacherName andWithSubject:self.hw.subject];
+    [self.view addSubview:_teacherView];
+    
+    NSString *homeworkimageId = self.hw.homeworkId;
+    int hwImage = homeworkimageId.intValue;
+    
+    [ss selectImage:hwImage andWithSuccessInfo:^(NSArray *arrPic) {
+        self.picArr = arrPic;
+        NSLog(@"*************%@",_picArr);
+        [self.hmTable reloadData];
     }];
     
- 
-    
+  
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -87,15 +115,23 @@
         cell = [[OneHomeworkTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId ];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+  
     cell.modelCell = self.hw;
+    cell.pic = self.picArr;
+    self.picHeight = cell.cellH;
     return cell;
 
     }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (_picHeight) {
+        return _picHeight;
+      
+    }else{
     HomeworkModel *staus = self.hw;
     NSLog(@"%f",staus.cellHeight);
-    return staus.cellHeight;
+        return staus.cellHeight;
+    }
     
    }
 

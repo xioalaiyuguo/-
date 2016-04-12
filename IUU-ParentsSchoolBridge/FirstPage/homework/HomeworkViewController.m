@@ -44,6 +44,9 @@
 
 @property (strong,nonatomic)UILabel *lab;
 
+//请求科目
+@property (strong,nonatomic)NSMutableDictionary *subDic;
+
 @end
 
 @implementation HomeworkViewController
@@ -56,7 +59,8 @@
     self.lab = [[UILabel alloc]init];
     _lab.text = @"今天没有发布作业哦";
     _lab.font = [UIFont systemFontOfSize:15];
-    _lab.frame = CGRectMake(SCREEN_WIDTH/2-75,120, 150, 15);
+    _lab.textColor = COLOR(150, 150, 150, 1);
+    _lab.frame = CGRectMake(SCREEN_WIDTH/2-75,(SCREEN_HEIGHT-64)/2, 150, 15);
     _lab.hidden = YES;
        self.navigationController.navigationBarHidden = NO;
   
@@ -138,13 +142,23 @@
     if (_homeworkArr==nil) {
         NSArray *dicArr = _getArr;
         NSMutableArray *arr = [NSMutableArray arrayWithCapacity:0];
-        for (NSDictionary *dic in dicArr) {
+//        for (NSDictionary *dic in dicArr) {
+//            HomeworkModel *hm = [HomeworkModel HomeworkModelWithdic:dic];
+//            [arr addObject:hm];
+//        }
+//        _homeworkArr = arr;
+        long  int t ;
+        for ( t = dicArr.count - 1; t>=0; t--) {
+            NSDictionary *dic = dicArr[t];
             HomeworkModel *hm = [HomeworkModel HomeworkModelWithdic:dic];
             [arr addObject:hm];
+            NSLog(@"11111%ld",t);
         }
         _homeworkArr = arr;
+
         
     }
+    
     return _homeworkArr;
 }
 
@@ -170,6 +184,13 @@
 
     cell.lab1.text = h1.homeworkcontent1;
     cell.lab2.text = h1.homeworkcontent22;
+    cell.timaeLab.text = h1.time;
+    
+    /**
+     *  daigai
+     */
+    cell.teacherNameLab.text = h1.teacherName;
+//    cell.teacherNameLab.text = h1.teacherName;
     return  cell;
 }
 
@@ -197,30 +218,65 @@
 
 #pragma mark 点击右上角的周几执行的方法
 -(void)reloadTable:(NSNotification *)notification{
+    _lab.hidden = YES;
     NSString *str = notification.object;
     
-    NSArray* stringArray = [str componentsSeparatedByString: @"-"];
+    NSArray* stringArray = [str componentsSeparatedByString: @"+"];
     NSString *str2 = stringArray[1];
     NSString *str1 = stringArray[0];
+    
     self.i = str1.intValue;
     NSLog(@"%d",_i);
-    
-    if (!_lab.hidden) {
-        _lab.hidden = YES;
-    }
+//    self.homeworkArr = nil;
 
+       if (_i > 800) {
+           self.homeworkArr = nil;
+           if ([str2 isEqualToString:@"1000"]) {
+               self.navigationItem.title = @"语文作业";
+                             NSDictionary *dic = @{@"sub":@"语文",
+                                     @"classId":@1,
+                                     };
+               self.subDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+                         }
+           if ([str2 isEqualToString:@"1001"]) {
+               self.navigationItem.title = @"数学作业";
+               NSDictionary *dic = @{@"sub":@"数学",
+                                     @"classId":@1,
+                                     };
+               self.subDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+               NSLog(@"shuxue");
+               NSLog(@"%@",_subDic[@"sub"]);
+                        }
+           if ([str2 isEqualToString:@"1002"]) {
+               self.navigationItem.title = @"英语作业";
+               NSDictionary *dic = @{@"sub":@"英语",
+                                     @"classId":@1,
+                                     };
+               self.subDic = [NSMutableDictionary dictionaryWithDictionary:dic];
+
+                          }
+           [self subRequest:_subDic];
+
+           
+    }else{
+   
     self.navigationItem.title = _weekArr[str2.intValue];
-    
+        [self newRequest];
+    }
+  
     [self.refreshView  startAnimating];
     self.headLab.hidden = YES;
     self.homeworkTabView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
-    [self  newRequest];
     
-}
+   }
 
 -(void)newRequest{
+    
+
     NSString *today = [NSString getDay];
+    
     NSString *day = [NSString stringWithString:today andWithtt:_i];
+//    NSString *day = @"2016-04-09";
     self.requestDic = [NSMutableDictionary dictionaryWithCapacity:0];
     [self.requestDic setObject:day forKey: @"time"];
     [self.requestDic setObject:@1 forKey: @"classId"];
@@ -242,6 +298,7 @@
         }else{
         
         self.getArr = homeworkDic[@"data"];
+          
         //        NSLog(@"%@",_getArr);
             if (!_lab.hidden) {
                 _lab.hidden = YES;
@@ -278,8 +335,11 @@
         [self.refreshView  startAnimating];
         self.homeworkTabView.frame = CGRectMake(0,0, SCREEN_WIDTH, SCREEN_HEIGHT);
         self.headLab.hidden = YES;
+        if (_i > 800) {
+            [self subRequest:_subDic]; 
+        }else{
         [self newRequest];
-
+        }
     }
     
 }
@@ -297,5 +357,36 @@
    
     _lab.hidden = NO;
    
+}
+
+//科目作业的请求
+-(void)subRequest:(NSDictionary *)dic{
+    HomeworkService *ss = [[HomeworkService alloc]init];
+    [ss requestsubInfoWithDic:dic andWithSuccessInfo:^(NSDictionary *homeworkDic) {
+        if ([homeworkDic[@"code"] isEqual:@0]) {
+            self.getArr = nil;
+            NSLog(@"没有发布作业哦");
+            [self performSelector:@selector(showLab) withObject:nil afterDelay:1.0f];
+            
+        }else{
+            
+            
+            self.getArr = homeworkDic[@"data"];
+            //                       self.homeworkArr = _getArr;
+            NSLog(@"%@",_getArr);
+            if (!_lab.hidden) {
+                _lab.hidden = YES;
+            }
+            
+            
+        }
+        if (self.refreshView.isAnimating == YES) {
+            [self performSelector:@selector(sstop) withObject:nil afterDelay:1.0f];
+            
+        }
+        [self.homeworkTabView reloadData];
+    }];
+    
+
 }
 @end

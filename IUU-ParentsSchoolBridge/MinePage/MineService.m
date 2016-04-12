@@ -8,10 +8,10 @@
 
 #import "MineService.h"
 #import "AFNetworking.h"
-#define STUDENTKURL @"http://10.110.5.51:8887/iuuapp/index.php/home/Mine/studentInfo"
-#define RONGYUURL @"http://10.110.5.51:8887/iuuapp/index.php/home/Mine/rongyu"
-#define DIZHIYUURL @"http://10.110.5.51:8887/iuuapp/index.php/home/Mine/savediZhi"
-#define GETDIZHIYUURL @"http://10.110.5.51:8887/iuuapp/index.php/home/Mine/getdiZhi"
+#define STUDENTKURL @"http://10.110.5.96:8888/iuu-teacher/index.php/home/Mine/studentInfo"
+#define RONGYUURL @"http://10.110.5.96:8888/iuu-teacher/index.php/home/Mine/rongyu"
+#define DIZHIYUURL @"http://10.110.5.96:8888/iuu-teacher/index.php/home/Mine/savediZhi"
+#define GETDIZHIYUURL @"http://10.110.5.96:8888/iuu-teacher/index.php/home/Mine/getdiZhi"
 @implementation MineService
 
 -(void)requestInfoWithtjiazhangId:(long)jiazhangId andWithSuccessInfo:(void (^)(NSDictionary *))studentInfo{

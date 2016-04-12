@@ -20,4 +20,10 @@
 
 @property (strong,nonatomic)UILabel *lab2;
 
+//时间
+@property (strong,nonatomic)UILabel *timaeLab;
+
+//老师姓名的
+@property (strong,nonatomic)UILabel *teacherNameLab;
+
 @end

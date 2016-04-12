@@ -14,12 +14,17 @@
     HomeworkModel *hm = [[self alloc]init];
     hm.subject = dic[@"homework_subject"];
     hm.homeworkimage = dic[@"homework_image"];
-    hm.teacherid = dic[@"teacher_id"];
+    hm.teacherid = dic[@"teachers_id"];
     hm.time = dic[@"homework_time"];
+    
+    hm.homeworkId = dic[@"homework_id"];
+    
+    hm.teacherName = dic[@"user_name"];
     NSString *contentString = dic[@"homework_content"];
+    
     NSArray* stringArray = [contentString componentsSeparatedByString: @"#"];
     
-    hm.countHw = stringArray.count;
+    hm.countHw = stringArray.count - 1;
     
     NSString* dayString = [stringArray objectAtIndex: 0];
     hm.homeworkcontent1 = dayString;

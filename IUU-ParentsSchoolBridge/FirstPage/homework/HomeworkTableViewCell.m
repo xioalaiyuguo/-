@@ -29,10 +29,23 @@
         self.lab2 = [[UILabel alloc]init];
         self.lab2.font = [UIFont systemFontOfSize:15];
         
+        self.timaeLab = [[UILabel alloc]init];
+        self.timaeLab.font = [UIFont systemFontOfSize:11];
+        self.timaeLab.textColor = COLOR(150, 150,150, 1);
+        self.timaeLab.textAlignment = NSTextAlignmentLeft;
+        
+        self.teacherNameLab = [[UILabel alloc]init];
+        self.teacherNameLab.font = [UIFont systemFontOfSize:12];
+        self.teacherNameLab.textAlignment = NSTextAlignmentCenter;
+
+        
         [self.cellView addSubview:_bgImageView];
         [self.cellView addSubview:_subImageView];
         [self.cellView addSubview:_lab1];
         [self.cellView addSubview:_lab2];
+        [self.cellView addSubview:_timaeLab];
+         [self.cellView addSubview:_teacherNameLab];
+        
         [self.contentView addSubview:_cellView];
         
     }
@@ -45,7 +58,9 @@
     self.bgImageView.frame = CGRectMake(14,18, SCREEN_WIDTH-28, 150.0/568.0*SCREEN_HEIGHT);
     self.lab1.frame = CGRectMake(40.0/320.0*SCREEN_WIDTH,80/568.0*SCREEN_HEIGHT, 237.0/320.0*SCREEN_WIDTH, 14.0/568.0*SCREEN_HEIGHT);
     self.lab2.frame = CGRectMake(40.0/320.0*SCREEN_WIDTH,110/568.0*SCREEN_HEIGHT, 237.0/320.0*SCREEN_WIDTH, 14.0/568.0*SCREEN_HEIGHT);
-
+    self.timaeLab.frame = CGRectMake(SCREEN_WIDTH-95, 135/568.0*SCREEN_HEIGHT,76, 15);
+    self.teacherNameLab.frame = CGRectMake(SCREEN_WIDTH/2-50, 45/568.0*SCREEN_HEIGHT,100, 15);
+    
 }
 
 

@@ -15,4 +15,9 @@
 -(void)requestInfoWithteacherId:( long int)teacherId andWithSuccessInfo:(void(^)(NSDictionary *))teacherInfo;
 
 -(NSString *)plistPath;
+- (void )selectImage:(int)homeworkId andWithSuccessInfo:(void (^)(NSArray *))imageInfo;
+
+//-(void)requestTeacherImageWith:(int)teacher andWithSuccess:(void (^)(NSData *))teacherImage;
+-(void)requestsubInfoWithDic:(NSDictionary *)dic andWithSuccessInfo:(void (^)(NSDictionary *))homeworkInfo;
+
 @end

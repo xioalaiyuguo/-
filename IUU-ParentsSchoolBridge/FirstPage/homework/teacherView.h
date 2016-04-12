@@ -10,5 +10,5 @@
 
 @interface teacherView : UIView
 
--(UIView *)initWithFrame:(CGRect)frame andWithTeacherImageView:(NSString *)teacherImageView andWithTeacherName:(NSString *)teacherName andWithSubject:(NSString *)subject;
+-(UIView *)initWithFrame:(CGRect)frame andWithTeacherImageView:(NSData *)teacherImageView andWithTeacherName:(NSString *)teacherName andWithSubject:(NSString *)subject;
 @end
