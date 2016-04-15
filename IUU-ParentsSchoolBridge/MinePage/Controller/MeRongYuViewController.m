@@ -55,7 +55,7 @@
        self.arr = stuRongyudic[@"data"];
        
        for (NSDictionary *ddd in _arr) {
-         NSString *time = ddd[@"rong_time"];
+         NSString *time = ddd[@"rongyu_time"];
            NSArray* stringArray = [time componentsSeparatedByString: @"-"];
            NSString  *mouthString = [stringArray objectAtIndex:1];
            NSString* dayString = [stringArray objectAtIndex: 2];
@@ -67,7 +67,6 @@
 
 }
 -(void)leftButton{
-    
     
     [self.navigationController popViewControllerAnimated:YES];
     

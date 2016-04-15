@@ -136,12 +136,15 @@
     [ss requestInfoWithjiazhangId:_jiazhangid andWithSuccessInfo:^(NSDictionary *dic) {
         NSString *dizhi = dic[@"data"][@"jiazhang_dizhi"];
         NSArray* stringArray = [dizhi componentsSeparatedByString: @"-"];
+        if (stringArray.count != 2) {
+            
+        }else{
         NSString  *yearString = [stringArray objectAtIndex:0];
         NSString  *mouthString = [stringArray objectAtIndex:1];
         self.str = yearString;
         self.aStr = mouthString;
         [self.tabView reloadData];
-
+        }
     }];
 
 }

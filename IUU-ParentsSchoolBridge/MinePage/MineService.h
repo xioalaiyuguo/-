@@ -18,4 +18,6 @@
   */
 -(void)requestInfoWithDic:(NSDictionary *)dic andWithSuccessInfo:(void (^)(NSDictionary *))homeworkInfo;
 -(void)requestInfoWithjiazhangId:(long)jiazhangId andWithSuccessInfo:(void (^)(NSDictionary *))dizhi;
+
++ (void)PhotoServiceWithData:(NSData *)imageData andSuccess:(void (^)(NSDictionary *))successinfo;
 @end

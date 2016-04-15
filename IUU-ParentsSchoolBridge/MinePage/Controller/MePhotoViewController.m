@@ -8,6 +8,8 @@
 
 #import "MePhotoViewController.h"
 #import "Define.h"
+#import "MineService.h"
+#import "SVProgressHUD.h"
 @interface MePhotoViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 /**  头像 */
 @property (strong,nonatomic)UIImageView *image;
@@ -172,31 +174,29 @@
     
 }
 #pragma mark - 当一个相片被选择后进入
--(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-
-{
+-(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     
     NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
     
     //当选择的类型是图片
-    if ([type isEqualToString:@"public.image"])
-    {
+    if ([type isEqualToString:@"public.image"]){
         //先把图片转成NSData
         UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
         NSData *data;
         if (UIImagePNGRepresentation(image) == nil)
         {
-            data = UIImageJPEGRepresentation(image, 1.0);
+           data = UIImagePNGRepresentation(image);
         }
         else
         {
-            data = UIImagePNGRepresentation(image);
-        }
-//#warning 图片上传
+            data = UIImageJPEGRepresentation(image, 0.5f);
+            //#warning 图片上传
 #pragma mark - 进行网络请求，上传数据（）
-        
-        
-        
+     [MineService PhotoServiceWithData:data andSuccess:^(NSDictionary *ddd) {
+         NSLog(@"%@",ddd);
+         
+     }];
+        }
         //图片保存的路径
         //这里将图片放在沙盒的documents文件夹中
         NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
@@ -216,7 +216,7 @@
         //关闭相册界面
         [picker dismissViewControllerAnimated:YES completion:nil];
         
-//        [SVProgressHUD showSuccessWithStatus:@"图片上传成功"];
+        [SVProgressHUD showSuccessWithStatus:@"图片上传成功"];
         self.image.image = image;
     }
     

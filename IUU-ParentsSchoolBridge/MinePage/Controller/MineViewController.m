@@ -16,6 +16,7 @@
 #import "HomeViewController.h"
 #import "Define.h"
 #import "MineService.h"
+#define PREFIX_URL  @"http://10.110.5.51:8887/iuuapp/"
 @interface MineViewController ()
 @property (strong,nonatomic)UITableView *myTab;
 @property (strong,nonatomic)NSDictionary *infoDic;
@@ -24,6 +25,8 @@
 @property (strong,nonatomic)NSArray *infoArr1;
 @property (strong,nonatomic)NSArray *picArr;
 @property (assign,nonatomic)int i;
+
+@property (strong,nonatomic)UIImage *headerImage;
 @end
 
 @implementation MineViewController
@@ -41,13 +44,37 @@
         [marr addObject:dic[@"sturdent_name"]];
         [marr addObject:dic[@"school_name"]];
         [marr addObject:dic[@"class_name"]];
-        
-         self.infoArr = marr;
+        NSLog(@"%@",dic[@"jiazhang_touxiang"]);
+        if ([dic[@"jiazhang_touxiang"]isEqualToString:@"无"] ) {
+            self.headerImage = [UIImage imageNamed:@"123456.jpg"];
+        }else{
+        [marr addObject:dic[@"jiazhang_touxiang"]];
+        }
+        self.infoArr = marr;
         [self.myTab reloadData];
         
         NSString * tt = dic[@"student_id"];
         self.i = tt.intValue;
+        
+        if (_infoArr.count == 4) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString *imageurl = [NSString stringWithFormat:@"%@image/mytouxiang/%@",PREFIX_URL,[_infoArr lastObject]];
+                NSData *data = [NSData dataWithContentsOfURL:[NSURL URLWithString:imageurl]];
+                UIImage *image = [UIImage imageWithData:data];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    
+                    _headerImage = image;
+                    [self.myTab reloadData];
+                    
+                });
+            });
+            
+        }
+        
+
+        
     }];
+    
     
     
     
@@ -61,6 +88,8 @@
     self.picArr  = @[@"我的地址",@"我的荣誉 ",@"设置 "];
     
     [self creatTableVier];
+    
+    
 }
 
 -(void)creatTableVier{
@@ -137,7 +166,7 @@
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             cell.labName.text = _infoArr1[indexPath.row];
-            cell.headView.image = [UIImage imageNamed:@"123456.jpg"];
+            cell.headView.image = _headerImage;
             return cell;
         }else{
             static  NSString *Id = @"12345";
@@ -160,7 +189,7 @@
         MineThirdTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Id];
         if (cell == nil) {
             cell = [[MineThirdTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Id];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         cell.labName.text = _infoArr1[indexPath.row + 4];
