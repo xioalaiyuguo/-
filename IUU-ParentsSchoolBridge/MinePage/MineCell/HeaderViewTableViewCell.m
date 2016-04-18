@@ -17,8 +17,8 @@
         self.labName.font =[UIFont systemFontOfSize:15];
 //        self.labName.text = @"头像";
         self.headView = [[UIImageView alloc]init];
-        self.headView.backgroundColor = [UIColor blueColor];
-        self.headView.image = [UIImage imageNamed:@"wo.png"];
+        self.headView.backgroundColor = [UIColor whiteColor];
+       
         [self.contentView addSubview:self.labName];
         [self.contentView addSubview:self.headView];
         

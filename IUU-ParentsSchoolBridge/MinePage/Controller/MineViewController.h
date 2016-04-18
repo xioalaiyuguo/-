@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MineViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
+@protocol picDelegate <NSObject>
+
+-(void)fanHuiChuanZhi:(UIImage *)headerImage;
+
+
+@end
+
+
+
+@interface MineViewController : UIViewController<UITableViewDelegate,UITableViewDataSource,picDelegate>
 
 @end

@@ -71,11 +71,14 @@ static CGRect oldframe;
 -(void)setModelCell:(HomeworkModel *)modelCell{
     _modelCell=modelCell;
     NSString *text;
+    
+    
+    
     if (modelCell.countHw == 1) {
        text = [NSString stringWithFormat:@"%@;",modelCell.homeworkcontent1];
     }
     if (modelCell.countHw == 2) {
-        text = [NSString stringWithFormat:@"%@;\n\n.%@;",modelCell.homeworkcontent1,modelCell.homeworkcontent2];
+        text = [NSString stringWithFormat:@"%@;\n\n%@;",modelCell.homeworkcontent1,modelCell.homeworkcontent2];
     }
     if (modelCell.countHw == 3) {
         text = [NSString stringWithFormat:@"%@;\n\n%@;\n\n%@;",modelCell.homeworkcontent1,modelCell.homeworkcontent2,modelCell.homeworkcontent3];

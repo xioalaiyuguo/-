@@ -354,7 +354,11 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 -(void)showLab{
-   
+    if (_i > 800) {
+        _lab.text = @"暂无历史作业";
+    }else{
+        _lab.text = @"今天 没有发布作业哦";
+    }
     _lab.hidden = NO;
    
 }

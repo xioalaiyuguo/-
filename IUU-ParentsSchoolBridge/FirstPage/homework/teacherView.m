@@ -42,7 +42,7 @@ static CGRect oldframe;
         self.teacherImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(showImage)];
         [self.teacherImageView addGestureRecognizer:tap];
-        self.teacherImageView.backgroundColor = [UIColor blueColor];
+        self.teacherImageView.backgroundColor = [UIColor whiteColor];
         if (teacherImageView) {
              self.teacherImageView.image = [UIImage imageWithData:teacherImageView];
         }else{

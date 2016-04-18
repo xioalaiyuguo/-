@@ -60,7 +60,7 @@
 -(void)layoutSubviews{
     [super layoutSubviews];
     
-    self.labName.frame = CGRectMake(15.0/320.0*SCREEN_WIDTH, 13.0,150.0/320.0*SCREEN_WIDTH, 18) ;
+    self.labName.frame = CGRectMake(15.0/320.0*SCREEN_WIDTH, 13.0,280.0/320.0*SCREEN_WIDTH, 18) ;
     
     self.textLab.frame = CGRectMake(187.0/320.0*SCREEN_WIDTH, 13.0,90.0/320.0*SCREEN_WIDTH, 18) ;
     

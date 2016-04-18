@@ -43,8 +43,11 @@
 }
 -(void)leftButton{
     
+    if (_delegate != nil && [_delegate respondsToSelector:@selector(fanHuiChuanZhi:)]) {
+        [_delegate fanHuiChuanZhi:_image.image];
+        [self.navigationController popViewControllerAnimated:YES];
+    }
     
-    [self.navigationController popViewControllerAnimated:YES];
     
 }
 
@@ -60,7 +63,7 @@
         self.image.image = images;
         
     }else{
-        self.image.image = [UIImage imageNamed:@"123456.jpg"];
+        self.image.image = [UIImage imageNamed:@"homework_person"];
     }
     
     [self.view addSubview:_image];
@@ -182,6 +185,7 @@
     if ([type isEqualToString:@"public.image"]){
         //先把图片转成NSData
         UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+        self.image.image = image;
         NSData *data;
         if (UIImagePNGRepresentation(image) == nil)
         {

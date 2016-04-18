@@ -20,7 +20,7 @@
 
 #define RONGYUN_KEY @"m7ua80gbu9qcm"
 
-#define TOKEN @"MILtNmx2LpTAabPmLtUPkC6T83qJ5D/JtLpTKAL0l3jp5y2MXMJ8qFrAe0SETs2euklOzM8TR6wli/QoqzPfR+G4MW0USlid"
+//#define TOKEN @"MILtNmx2LpTAabPmLtUPkC6T83qJ5D/JtLpTKAL0l3jp5y2MXMJ8qFrAe0SETs2euklOzM8TR6wli/QoqzPfR+G4MW0USlid"
 
 
 //考勤页面cell字大小

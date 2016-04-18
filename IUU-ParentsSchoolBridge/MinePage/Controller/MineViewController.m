@@ -162,7 +162,7 @@
             HeaderViewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:Id];
             if (cell == nil) {
                 cell = [[HeaderViewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:Id];
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             cell.labName.text = _infoArr1[indexPath.row];
@@ -208,6 +208,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row==0) {
             MePhotoViewController *photo =[[MePhotoViewController alloc]init];
+            photo.delegate = self;
             photo.hidesBottomBarWhenPushed  = YES;//隐藏tabbar
             
             [self.navigationController pushViewController:photo animated:YES];
@@ -237,16 +238,12 @@
             
         }
     }
-    
 
-/*
-#pragma mark - Navigation
+}
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+-(void)fanHuiChuanZhi:(UIImage *)headerImage{
+    _headerImage = headerImage;
+    [self.myTab reloadData];
 }
-*/
-}
+
 @end

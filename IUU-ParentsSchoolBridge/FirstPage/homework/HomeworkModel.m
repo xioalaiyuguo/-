@@ -47,7 +47,12 @@
         hm.homeworkcontent4 = [stringArray objectAtIndex: 3];
 
     }
-    
+    if (stringArray.count > 4) {
+        hm.homeworkcontent2 = [stringArray objectAtIndex: 1];
+        hm.homeworkcontent3 = [stringArray objectAtIndex: 2];
+        hm.homeworkcontent4 = [stringArray objectAtIndex: 3];
+        
+    }
     return hm;
 }
 

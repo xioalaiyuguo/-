@@ -27,11 +27,11 @@
     UILabel *lab1 = [[UILabel alloc]initWithFrame:CGRectMake(15, 129, 70, 25)];
     lab1.text = @"制作团队:";
     lab1.font = [UIFont systemFontOfSize:15];
-    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(95, 129, 100, 25)];
+    UILabel *lab2 = [[UILabel alloc]initWithFrame:CGRectMake(95, 65+64, 100, 25)];
     lab2.font = [UIFont systemFontOfSize:15];
     lab2.text = @"李,王";
     
-    UILabel *lab3 = [[UILabel alloc]initWithFrame:CGRectMake(95, 129, 100, 25)];
+    UILabel *lab3 = [[UILabel alloc]initWithFrame:CGRectMake(95, 90+64, 100, 25)];
     lab3.font = [UIFont systemFontOfSize:15];
     lab3.text = @"王,郭";
     

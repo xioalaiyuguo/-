@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
+#import "MineViewController.h"
 @interface MePhotoViewController : UIViewController
+
+@property (assign,nonatomic)id <picDelegate> delegate;
 
 @end
